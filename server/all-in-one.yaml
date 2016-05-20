@@ -62,7 +62,7 @@ items:
         serviceAccount: glusterfs
         containers:
         - name: glusterfs-server
-          image: matthewvalimaki/glusterfs:latest
+          image: matthewvalimaki/glusterfs-kubernetes-server:latest
           securityContext:
             privileged: true
           ports:
