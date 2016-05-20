@@ -1,6 +1,8 @@
 glusterfs-kubernetes
 ====================
 
+This is based on https://github.com/sterburg/kubernetes-glusterfs-server.
+
 ## Server
 The [server] shows how to run [GlusterFS] server on Kubernetes. The [all-in-one.yaml] contains 
 ReplicationController, Service and ServiceAccount configuration and uses two (2) replicas. Note
