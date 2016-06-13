@@ -8,7 +8,7 @@ items:
 - kind: Service
   apiVersion: v1
   metadata:
-    name: glusterfs-storage
+    name: gfs-srv-d8-3-3-5-2
   spec:
     ports:
     - name: ssh
@@ -43,25 +43,25 @@ items:
       port: 2049
       targetPort: 2049
     selector:
-      component: glusterfs-storage
+      component: gfs-srv-d8-3-3-5-2
 - kind: ReplicationController
   apiVersion: v1
   metadata:
     labels:
-      component: glusterfs-storage
-    name: glusterfs-storage
+      component: gfs-srv-d8-3-3-5-2
+    name: gfs-srv-d8-3-3-5-2
   spec:
     replicas: 2
     selector:
-      component: glusterfs-storage
+      component: gfs-srv-d8-3-3-5-2
     template:
       metadata:
         labels:
-          component: glusterfs-storage
+          component: gfs-srv-d8-3-3-5-2
       spec:
         serviceAccount: glusterfs
         containers:
-        - name: glusterfs-server
+        - name: gfs-srv-d8-3-3-5-2
           image: matthewvalimaki/glusterfs-kubernetes-server-debian8.3-3.5.2:latest
           securityContext:
             privileged: true
