@@ -26,10 +26,10 @@ State: Peer in Cluster (Connected
 ```
 
 ## Versions
-|Solution        |OS        |Software   |Version|
-|:---------------|:---------|:----------|:------|
-|debian8.5-3.7.11|Debian 8.5|[GlusterFS]|3.7.11 |
-|debian7.8-3.2.7 |Debian 7.8|[GlusterFS]|3.2.7  |
+|Solution          |OS        |Software   |Version|
+|:-----------------|:---------|:----------|:------|
+|[debian8.5-3.7.11]|Debian 8.5|[GlusterFS]|3.7.11 |
+|[debian7.8-3.2.7] |Debian 7.8|[GlusterFS]|3.2.7  |
 
 [GlusterFS]: https://www.gluster.org/
 [server]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server
@@ -37,3 +37,6 @@ State: Peer in Cluster (Connected
 [emptyDir]: http://kubernetes.io/docs/user-guide/volumes/#emptydir
 [kubelet]: http://kubernetes.io/docs/admin/kubelet/
 [kube-apiserver]: http://kubernetes.io/docs/admin/kube-apiserver/
+
+[debian8.5-3.7.11]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian8.5-3.7.11
+[debian7.8-3.2.7]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian7.8-3.2.7
