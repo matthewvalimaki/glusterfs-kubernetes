@@ -1,1 +1,1 @@
-docker build -t glusterfs/client .
+docker build -t glusterfs/server .

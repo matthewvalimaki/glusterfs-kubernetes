@@ -1,1 +1,1 @@
-docker run --rm -it glusterfs/client
+docker run --rm -it glusterfs/server
