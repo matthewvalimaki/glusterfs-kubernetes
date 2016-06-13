@@ -26,9 +26,10 @@ State: Peer in Cluster (Connected
 ```
 
 ## Versions
-|Software   |Version|
-|:----------|:------|
-|[GlusterFS]|3.7.11 |
+|Solution        |OS        |Software   |Version|
+|:---------------|:---------|:----------|:------|
+|debian8.5-3.7.11|Debian 8.5|[GlusterFS]|3.7.11 |
+|debian7.8-3.2.7 |Debian 7.8|[GlusterFS]|3.2.7  |
 
 [GlusterFS]: https://www.gluster.org/
 [server]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server

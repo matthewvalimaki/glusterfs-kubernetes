@@ -1,9 +1,6 @@
-FROM debian:jessie
+FROM debian:7.8
 
-ENV GLUSTERFS_VERSION_MAJOR=3.7 \
-    GLUSTERFS_VERSION_MINOR=11 \
-    
-    GLUSTER_VOL=vol0 \
+ENV GLUSTER_VOL=vol0 \
     GLUSTER_BRICK_PATH=/gluster_volume \
     GLUSTER_CONF_FLAG=/etc/gluster.env \
     SERVICE_NAME=gluster \
@@ -20,13 +17,7 @@ ENV SSH_OPTS="-p ${SSH_PORT} -o ConnectTimeout=20 -o UserKnownHostsFile=/dev/nul
 RUN \
     apt-get update && \
     apt-get dist-upgrade -y && \
-    apt-get install -y wget supervisor openssh-server dnsutils sshpass apt-transport-https && \
-
-    wget -O - https://download.gluster.org/pub/gluster/glusterfs/LATEST/rsa.pub | apt-key add - && \
-    echo deb https://download.gluster.org/pub/gluster/glusterfs/${GLUSTERFS_VERSION_MAJOR}/${GLUSTERFS_VERSION_MAJOR}.${GLUSTERFS_VERSION_MINOR}/Debian/jessie/apt/ jessie main > /etc/apt/sources.list.d/gluster.list && \
-    
-    apt-get update && \
-    apt-get install -y glusterfs-server=${GLUSTERFS_VERSION_MAJOR}.${GLUSTERFS_VERSION_MINOR}* && \
+    apt-get install -y wget supervisor openssh-server dnsutils sshpass apt-transport-https glusterfs-server=3.2.7-3+deb7u1 && \
     apt-get autoclean && \
     
     mkdir -p /var/run/sshd /root/.ssh /var/log/supervisor && \

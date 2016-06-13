@@ -62,7 +62,7 @@ items:
         serviceAccount: glusterfs
         containers:
         - name: glusterfs-server
-          image: matthewvalimaki/glusterfs-kubernetes-server:latest
+          image: matthewvalimaki/glusterfs-kubernetes-server-debian8.5-3.7.11:latest
           securityContext:
             privileged: true
           ports:
