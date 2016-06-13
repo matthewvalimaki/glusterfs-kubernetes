@@ -1,1 +1,1 @@
-docker build -t glusterfs/server .
+docker build -t glusterfs/server/debian8.5-3.7.11 .
