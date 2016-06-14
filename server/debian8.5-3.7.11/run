@@ -1,1 +1,1 @@
-docker run --rm -it glusterfs/server/debian8.5-3.7.11
+docker run --rm -it -e "ROOT_PASSWORD=1234" glusterfs/server/debian8.5-3.7.11
