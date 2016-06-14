@@ -8,7 +8,7 @@ items:
 - kind: Service
   apiVersion: v1
   metadata:
-    name: glusterfs-storage
+    name: gfs-strg-d85-3711
   spec:
     ports:
     - name: ssh
@@ -43,25 +43,25 @@ items:
       port: 2049
       targetPort: 2049
     selector:
-      component: glusterfs-storage
+      component: gfs-strg-d85-3711
 - kind: ReplicationController
   apiVersion: v1
   metadata:
     labels:
-      component: glusterfs-storage
-    name: glusterfs-storage
+      component: gfs-strg-d85-3711
+    name: gfs-strg-d85-3711
   spec:
     replicas: 2
     selector:
-      component: glusterfs-storage
+      component: gfs-strg-d85-3711
     template:
       metadata:
         labels:
-          component: glusterfs-storage
+          component: gfs-strg-d85-3711
       spec:
         serviceAccount: glusterfs
         containers:
-        - name: glusterfs-server
+        - name: gfs-srv-d85-3711
           image: matthewvalimaki/glusterfs-kubernetes-server-debian8.5-3.7.11:latest
           securityContext:
             privileged: true
@@ -85,7 +85,7 @@ items:
           - name: GLUSTER_BRICK_PATH
             value: /gluster_volume
           - name: SERVICE_NAME
-            value: glusterfs-storage.default.svc.cluster.local
+            value: gfs-strg-d85-3711.default.svc.cluster.local
           - name: ROOT_PASSWORD
             value: container_root_password
           - name: DEBUG
