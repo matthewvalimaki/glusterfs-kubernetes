@@ -17,6 +17,9 @@ ENV GLUSTERFS_VERSION_MAJOR=3.7 \
 # execute this on its own as it contains references to previous call
 ENV SSH_OPTS="-p ${SSH_PORT} -o ConnectTimeout=20 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
+# Add files
+ADD root /
+
 RUN \
     apt-get update && \
     apt-get dist-upgrade -y && \
@@ -33,10 +36,9 @@ RUN \
     perl -p -i -e "s/^Port .*/Port ${SSH_PORT}/g" /etc/ssh/sshd_config && \
     perl -p -i -e "s/#?PasswordAuthentication .*/PasswordAuthentication yes/g" /etc/ssh/sshd_config && \
     perl -p -i -e "s/#?PermitRootLogin .*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
-    grep ClientAliveInterval /etc/ssh/sshd_config >/dev/null 2>&1 || echo "ClientAliveInterval 60" >> /etc/ssh/sshd_config
-
-# Add files
-ADD root /
+    grep ClientAliveInterval /etc/ssh/sshd_config >/dev/null 2>&1 || echo "ClientAliveInterval 60" >> /etc/ssh/sshd_config && \
+    
+    chmod +x /usr/local/bin/run.sh
     
 VOLUME ["${GLUSTER_BRICK_PATH}"]
 
