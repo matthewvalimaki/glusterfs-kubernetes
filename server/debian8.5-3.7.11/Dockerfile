@@ -38,7 +38,7 @@ RUN \
     perl -p -i -e "s/#?PermitRootLogin .*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
     grep ClientAliveInterval /etc/ssh/sshd_config >/dev/null 2>&1 || echo "ClientAliveInterval 60" >> /etc/ssh/sshd_config && \
     
-    chmod +x /usr/local/bin/run.sh
+    chmod +x /usr/local/bin/*
     
 VOLUME ["${GLUSTER_BRICK_PATH}"]
 

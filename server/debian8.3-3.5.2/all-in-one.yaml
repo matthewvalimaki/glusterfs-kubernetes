@@ -85,7 +85,7 @@ items:
           - name: GLUSTER_BRICK_PATH
             value: /gluster_volume
           - name: SERVICE_NAME
-            value: glusterfs-storage.default.svc.cluster.local
+            value: gfs-strg-d83-352.default.svc.cluster.local
           - name: ROOT_PASSWORD
             value: container_root_password
           - name: DEBUG
