@@ -31,7 +31,7 @@ for PEER in ${GLUSTER_PEERS}; do
    echo "=> Checking if I can reach gluster container ${PEER} ..."
    
    while [ $CONTINUE_CHECK -eq 1 ]; do
-       HOST_IP=`sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@10.0.0.167 "hostname --ip-address" 3>&1`
+       HOST_IP=`sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "hostname --ip-address" 3>&1`
 
        if [ ${HOST_IP} != ${MY_IP} ]; then
           if test "${DISCOVERED_HOSTNAMES[${HOST_IP}]+isset}"; then
