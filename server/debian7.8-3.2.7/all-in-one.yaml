@@ -4,7 +4,7 @@ items:
 - kind: ServiceAccount
   apiVersion: v1
   metadata:
-    name: glusterfs
+    name: glusterfs-d78-327
 - kind: Service
   apiVersion: v1
   metadata:
@@ -59,7 +59,7 @@ items:
         labels:
           component: gfs-strg-d78-327
       spec:
-        serviceAccount: glusterfs
+        serviceAccount: glusterfs-d78-327
         containers:
         - name: gfs-srv-d78-327
           image: matthewvalimaki/glusterfs-kubernetes-server-debian7.8-3.2.7:latest
