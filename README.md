@@ -7,6 +7,7 @@ This is based on https://github.com/sterburg/kubernetes-glusterfs-server.
 The [server] shows how to run [GlusterFS] server on Kubernetes. The [all-in-one.yaml] contains 
 ReplicationController, Service and ServiceAccount configuration and uses two (2) replicas. Note
 that it also uses [emptyDir] as storage. While good for testing change it according to your needs.
+The setup uses `dig` command and environmental variable `SERVICE_NAME` (FQDN) for autodiscovery.
 
 ### Prerequisites for running
 For [GlusterFS] server to run inside of container you need to give it more privileges. With Kubernetes
@@ -24,6 +25,14 @@ Hostname: 172.16.19.4
 Uuid: 501a2a66-f5f1-47d2-aba9-e5e35f68cce3
 State: Peer in Cluster (Connected
 ```
+
+### Configuration
+See `all-in-one.yaml`.
+|Key          |Purpose                                                     |
+|:------------|:-----------------------------------------------------------|
+|SERVICE_NAME |Used for autodiscovery. By default uses `default` namespace.|
+|ROOT_PASSWORD|Used by SSH server/client for peer joining.                 |
+|SSH_PORT     |Used by SSH server/client for listening/connecting to peers.|
 
 ## Versions
 |Solution          |OS        |Software   |Version|

@@ -63,6 +63,13 @@ items:
         containers:
         - name: gfs-srv-d78-327
           image: matthewvalimaki/glusterfs-kubernetes-server-debian7.8-3.2.7:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           securityContext:
             privileged: true
           ports:

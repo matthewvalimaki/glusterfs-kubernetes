@@ -20,24 +20,34 @@ sleep 10
 check_if_already_joined
 
 # Join the cluster - choose a suitable container
-ALIVE=0
+HOST_IP=""
+CONTINUE_CHECK=1
+declare -A DISCOVERED_HOSTNAMES
 for PEER in ${GLUSTER_PEERS}; do
    # Skip myself
    if [ "${MY_IP}" == "${PEER}" ]; then
       continue
    fi
    echo "=> Checking if I can reach gluster container ${PEER} ..."
-   HOSTNAME=`sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "hostname" 3>&1`
-   if [ ${HOSTNAME} != hostname ]; then
-      echo "=> Gluster container ${PEER} is alive"
-      ALIVE=1
-      break
-   else
-      echo "*** Could not reach gluster container ${PEER} ..."
-   fi 
+   
+   while [ $CONTINUE_CHECK -eq 1 ]; do
+       HOST_IP=`sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "hostname --ip-address" 3>&1`
+
+       if [ ${HOST_IP} != ${MY_IP} ]; then
+          if test "${DISCOVERED_HOSTNAMES[${HOST_IP}]+isset}"; then
+            echo "=> Gluster container ${HOST_IP} is alive"
+            
+            CONTINUE_CHECK=0
+          else
+            DISCOVERED_HOSTNAMES[${HOST_IP}]=1
+          fi
+       else
+          echo "*** Found myself ${HOST_IP} ..."
+       fi 
+   done
 done
 
-if [ ${ALIVE} -eq 0 ]; then
+if [ ${#DISCOVERED_HOSTNAMES[@]} -eq 0 ]; then
    echo "Could not reach any GlusterFS container from this list: ${GLUSTER_PEERS} - Maybe I am the first node in the cluster? Well, I keep waiting for new containers to join me ..."
    exit 0
 fi
@@ -45,16 +55,16 @@ fi
 # If PEER has requested me to join him, just wait for a while
 SEMAPHORE_FILE=/tmp/adding-gluster-node.${PEER}
 if [ -e ${SEMAPHORE_FILE} ]; then
-   echo "=> Seems like peer ${PEER} has just requested me to join him"
+   echo "=> Seems like peer ${HOST_IP} has just requested me to join him"
    echo "=> So I'm waiting for 20 seconds to finish it..."
    sleep 60
 fi
 check_if_already_joined
 
-echo "=> Joining cluster with container ${PEER} ..."
-sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "add-gluster-peer.sh ${MY_IP}"
+echo "=> Joining cluster with container ${HOST_IP} ..."
+sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${HOST_IP} "add-gluster-peer.sh ${MY_IP}"
 if [ $? -eq 0 ]; then
-   echo "=> Successfully joined cluster with container ${PEER} ..."
+   echo "=> Successfully joined cluster with container ${HOST_IP} ..."
 else
-   echo "=> Error joining cluster with container ${PEER} ..."
+   echo "=> Error joining cluster with container ${HOST_IP} ..."
 fi
