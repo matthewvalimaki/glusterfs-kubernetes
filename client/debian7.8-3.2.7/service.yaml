@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gfs-c-d78-327
+spec:
+  ports:
+  - port: 8081
+  selector:
+    app: gfs-c-d78-327

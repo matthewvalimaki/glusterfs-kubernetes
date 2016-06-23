@@ -18,7 +18,7 @@ pods will not start.
 If you used [all-in-one.yaml] go into one of the containers and execute `gluster peer status`.
 You should see something like this:
 ```
-root@glusterfs-storage-tguzw:/# gluster peer status
+root@gfs-strg-d78-327-knwtu:/# gluster peer status
 Number of Peers: 1
 
 Hostname: 172.16.19.4
@@ -26,13 +26,36 @@ Uuid: 501a2a66-f5f1-47d2-aba9-e5e35f68cce3
 State: Peer in Cluster (Connected
 ```
 
+If you used [all-in-one.yaml] go into one of the containers and execute `gluster volume info`.
+You should see something like this:
+```
+root@gfs-strg-d78-327-knwtu:/# gluster volume info
+
+Volume Name: shared01
+Type: Replicate
+Status: Started
+Number of Bricks: 2
+Transport-type: tcp
+Bricks:
+Brick1: 172.17.0.4:/gluster_volume/1
+Brick2: 172.17.0.5:/gluster_volume/1
+```
+
+### Mounting client
+First create a directory where the mount will be created. The `shared01` in the example command below comes from configuration option `GLUSTER_VOL`.
+Then execute the following:
+```
+mount -t glusterfs 172.17.0.5:/shared01 /mnt/my-path
+```
+
 ### Configuration
 See `all-in-one.yaml`.
-|Key          |Purpose                                                     |
-|:------------|:-----------------------------------------------------------|
-|SERVICE_NAME |Used for autodiscovery. By default uses `default` namespace.|
-|ROOT_PASSWORD|Used by SSH server/client for peer joining.                 |
-|SSH_PORT     |Used by SSH server/client for listening/connecting to peers.|
+|Key                |Purpose                                                       |Value             |
+|:------------------|:-------------------------------------------------------------|------------------|
+|SERVICE_NAME       |Used for autodiscovery. By default uses `default` namespace.  |                  |
+|ROOT_PASSWORD      |Used by SSH server/client for peer joining.                   |                  |
+|SSH_PORT           |Used by SSH server/client for listening/connecting to peers.  |                  |
+|GLUSTER_VOLUME_TYPE|Used by [GlusterFS] to define whether to distribute or mirror.|distributed/mirror|
 
 ## Versions
 |Solution          |OS        |Software   |Version|

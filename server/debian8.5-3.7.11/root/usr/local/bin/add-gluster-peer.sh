@@ -85,8 +85,14 @@ for i in `seq 1 $MAX_VOLUMES`; do
 	# Create the volume
 	if ! gluster volume list | grep "^${GLUSTER_VOL}${i}$" >/dev/null; then
 	   echo "=> Creating GlusterFS volume ${GLUSTER_VOL}${i}..."
-	   gluster volume create ${GLUSTER_VOL}${i} replica 2 transport tcp ${MY_IP}:${GLUSTER_BRICK_PATH}/${i} ${PEER}:${GLUSTER_BRICK_PATH}/${i} force || detach
-	   sleep 1
+
+       if [ ${GLUSTER_VOLUME_TYPE} == "distributed" ]; then
+            gluster volume create ${GLUSTER_VOL}${i} transport tcp ${MY_IP}:${GLUSTER_BRICK_PATH}/${i} ${PEER}:${GLUSTER_BRICK_PATH}/${i} || detach
+       else
+            gluster volume create ${GLUSTER_VOL}${i} replica 2 transport tcp ${MY_IP}:${GLUSTER_BRICK_PATH}/${i} ${PEER}:${GLUSTER_BRICK_PATH}/${i} || detach
+       fi
+       
+       sleep 1
 	fi
 
 	# Start the volume

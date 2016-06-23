@@ -85,6 +85,8 @@ items:
           - containerPort: 111
             protocol: UDP
           env:
+          - name: GLUSTER_VOLUME_TYPE
+            value: distributed
           - name: GLUSTER_BRICK_PATH
             value:
           - name: GLUSTER_VOL
