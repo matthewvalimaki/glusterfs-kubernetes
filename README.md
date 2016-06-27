@@ -3,6 +3,15 @@ glusterfs-kubernetes
 
 This is based on https://github.com/sterburg/kubernetes-glusterfs-server.
 
+## Why image for every single GlusterFS version?
+Version differences can lead to unexpected and more unstable behavior. To negate negative effects of
+version differences it is recommended that server and client both use exactly the same version.
+
+## Kernel problems
+Older versions of Linux Kernel contain a bug that cause aufs errors and the following error:
+`dirperm1 breaks the protection by the permission bits on the lower branch`. See Docker issue [21081]
+and [the fix].
+
 ## Server
 The [server] shows how to run [GlusterFS] server on Kubernetes. The [all-in-one.yaml] contains 
 ReplicationController, Service and ServiceAccount configuration and uses two (2) replicas. Note
@@ -50,6 +59,7 @@ mount -t glusterfs 172.17.0.5:/shared01 /mnt/my-path
 
 ### Configuration
 See `all-in-one.yaml`.
+
 |Key                |Purpose                                                       |Value             |
 |:------------------|:-------------------------------------------------------------|------------------|
 |SERVICE_NAME       |Used for autodiscovery. By default uses `default` namespace.  |                  |
@@ -70,6 +80,8 @@ See `all-in-one.yaml`.
 [emptyDir]: http://kubernetes.io/docs/user-guide/volumes/#emptydir
 [kubelet]: http://kubernetes.io/docs/admin/kubelet/
 [kube-apiserver]: http://kubernetes.io/docs/admin/kube-apiserver/
+[21081]: https://github.com/docker/docker/issues/21081#issuecomment-214986527
+[the fix]: http://www.gossamer-threads.com/lists/linux/kernel/2256803
 
 [debian8.5-3.7.11]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian8.5-3.7.11
 [debian8.3-3.5.2]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian8.3-3.5.2

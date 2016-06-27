@@ -104,9 +104,27 @@ items:
           volumeMounts:
             - name: local0
               mountPath: /gluster_volume
+        - name: gfs-c-d78-327
+          image: matthewvalimaki/glusterfs-kubernetes-client-debian7.8-3.2.7
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+          - name: GLUSTER_VOLUME_SERVER
+            value: gfs-strg-d78-327.default.svc.cluster.local
+          - name: GLUSTER_VOLUMEID
+            value: shared01
+          - name: GLUSTER_MOUNTPOINT
+            value: /gluster_mount/shared0
+          volumeMounts:
+            - name: shared0
+              mountPath: /gluster_mount/shared0
         volumes:
           - name: local0
             emptyDir: {}
-
-      
-      
+          - name: shared0
+            emptyDir: {}
