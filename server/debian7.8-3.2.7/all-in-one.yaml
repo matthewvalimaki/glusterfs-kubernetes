@@ -59,6 +59,8 @@ items:
         labels:
           component: gfs-strg-d78-327
       spec:
+        nodeSelector:
+          docker-version: 1.11.2
         serviceAccount: glusterfs-d78-327
         containers:
         - name: gfs-srv-d78-327

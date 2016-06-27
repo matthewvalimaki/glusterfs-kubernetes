@@ -22,6 +22,9 @@ Vagrant.configure(2) do |config|
     apt-get dist-upgrade -y
     apt-get autoremove -y
 
+    curl -o /usr/bin/kubectl -O https://storage.googleapis.com/kubernetes-release/release/v1.2.4/bin/linux/amd64/kubectl
+    chmod +x /usr/bin/kubectl
+    
     usermod -aG docker vagrant
     
     service docker start
