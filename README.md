@@ -70,6 +70,7 @@ See `all-in-one.yaml`.
 ## Versions
 |Solution          |OS        |Software   |Version|
 |:-----------------|:---------|:----------|:------|
+|[debian8.5-3.8.0] |Debian 8.5|[GlusterFS]|3.8.0  |
 |[debian8.5-3.7.11]|Debian 8.5|[GlusterFS]|3.7.11 |
 |[debian8.3-3.5.2] |Debian 8.3|[GlusterFS]|3.5.2  |
 |[debian7.8-3.2.7] |Debian 7.8|[GlusterFS]|3.2.7  |
@@ -83,6 +84,7 @@ See `all-in-one.yaml`.
 [21081]: https://github.com/docker/docker/issues/21081#issuecomment-214986527
 [the fix]: http://www.gossamer-threads.com/lists/linux/kernel/2256803
 
+[debian8.5-3.8.0]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian8.5-3.8.0
 [debian8.5-3.7.11]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian8.5-3.7.11
 [debian8.3-3.5.2]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian8.3-3.5.2
 [debian7.8-3.2.7]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian7.8-3.2.7
