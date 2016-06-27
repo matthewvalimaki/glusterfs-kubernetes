@@ -115,6 +115,8 @@ items:
             limits:
               memory: "128Mi"
               cpu: "500m"
+          securityContext:
+            privileged: true
           env:
           - name: GLUSTER_VOLUME_SERVER
             value: gfs-strg-d78-327.default.svc.cluster.local

@@ -15,4 +15,4 @@ RUN \
     
 VOLUME ["${GLUSTER_MOUNTPOINT}"]
     
-CMD ["/usr/local/bin/run-mount.sh"]
+CMD /bin/bash
