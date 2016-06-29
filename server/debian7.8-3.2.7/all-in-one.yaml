@@ -103,9 +103,27 @@ items:
             value: "1"
           - name: SSH_PORT
             value: "2222"
-          volumeMounts:
-            - name: local0
-              mountPath: /gluster_volume
+        volumes:
+          - name: local0
+            emptyDir: {}
+- kind: ReplicationController
+  apiVersion: v1
+  metadata:
+    labels:
+      component: gfs-c-d78-327
+    name: gfs-c-d78-327
+  spec:
+    replicas: 2
+    selector:
+      component: gfs-c-d78-327
+    template:
+      metadata:
+        labels:
+          component: gfs-c-d78-327
+      spec:
+        nodeSelector:
+          docker-version: 1.11.2
+        containers:
         - name: gfs-c-d78-327
           image: matthewvalimaki/glusterfs-kubernetes-client-debian7.8-3.2.7
           resources:
@@ -123,12 +141,10 @@ items:
           - name: GLUSTER_VOLUMEID
             value: shared01
           - name: GLUSTER_MOUNTPOINT
-            value: /gluster_mount/shared0
+            value: /gluster_mount/shared01
           volumeMounts:
-            - name: shared0
-              mountPath: /gluster_mount/shared0
+            - name: shared01
+              mountPath: /gluster_mount
         volumes:
-          - name: local0
-            emptyDir: {}
-          - name: shared0
+          - name: shared01
             emptyDir: {}
