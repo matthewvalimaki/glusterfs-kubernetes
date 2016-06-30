@@ -18,6 +18,11 @@ ReplicationController, Service and ServiceAccount configuration and uses two (2)
 that it also uses [emptyDir] as storage. While good for testing change it according to your needs.
 The setup uses `dig` command and environmental variable `SERVICE_NAME` (FQDN) for autodiscovery.
 
+## Client
+The [client] essentially is replicates [server] but instead of acting as a server acts as a client.
+The [client] tries to mount a [GlusterFS] volume and in case of failure will exit without error.
+The [client] uses [dumb-init] to mount and to keep container up indefinitely after mount completes.
+
 ### Prerequisites for running
 For [GlusterFS] server to run inside of container you need to give it more privileges. With Kubernetes
 you need to run [kubelet] and [kube-apiserver] with `--allow-privileged=true` or else [GlusterFS]
@@ -68,7 +73,7 @@ See `all-in-one.yaml`.
 |GLUSTER_VOLUME_TYPE|Used by [GlusterFS] to define whether to distribute or mirror.|distributed/mirror|
 
 ## Versions
-|Solution          |OS        |Software   |Version|
+|Server Solution   |OS        |Software   |Version|
 |:-----------------|:---------|:----------|:------|
 |[debian8.5-3.8.0] |Debian 8.5|[GlusterFS]|3.8.0  |
 |[debian8.5-3.7.11]|Debian 8.5|[GlusterFS]|3.7.11 |
@@ -77,12 +82,14 @@ See `all-in-one.yaml`.
 
 [GlusterFS]: https://www.gluster.org/
 [server]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server
+[client]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/client
 [all-in-one.yaml]: https://github.com/matthewvalimaki/glusterfs-kubernetes/blob/master/server/all-in-one.yaml
 [emptyDir]: http://kubernetes.io/docs/user-guide/volumes/#emptydir
 [kubelet]: http://kubernetes.io/docs/admin/kubelet/
 [kube-apiserver]: http://kubernetes.io/docs/admin/kube-apiserver/
 [21081]: https://github.com/docker/docker/issues/21081#issuecomment-214986527
 [the fix]: http://www.gossamer-threads.com/lists/linux/kernel/2256803
+[dumb-init]: https://github.com/Yelp/dumb-init
 
 [debian8.5-3.8.0]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian8.5-3.8.0
 [debian8.5-3.7.11]: https://github.com/matthewvalimaki/glusterfs-kubernetes/tree/master/server/debian8.5-3.7.11

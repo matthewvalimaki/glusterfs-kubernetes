@@ -59,6 +59,8 @@ items:
         labels:
           component: gfs-strg-d83-352
       spec:
+        nodeSelector:
+          docker-version: 1.11.2
         serviceAccount: glusterfs
         containers:
         - name: gfs-srv-d83-352
@@ -107,6 +109,46 @@ items:
         volumes:
           - name: local0
             emptyDir: {}
-
-      
+- kind: ReplicationController
+  apiVersion: v1
+  metadata:
+    labels:
+      component: gfs-c-d83-352
+    name: gfs-c-d83-352
+  spec:
+    replicas: 2
+    selector:
+      component: gfs-c-d83-352
+    template:
+      metadata:
+        labels:
+          component: gfs-c-d83-352
+      spec:
+        nodeSelector:
+          docker-version: 1.11.2
+        containers:
+        - name: gfs-c-d83-352
+          image: matthewvalimaki/glusterfs-kubernetes-client-debian8.3-3.5.2
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          securityContext:
+            privileged: true
+          env:
+          - name: GLUSTER_VOLUME_SERVER
+            value: gfs-strg-d83-352.default.svc.cluster.local
+          - name: GLUSTER_VOLUMEID
+            value: shared01
+          - name: GLUSTER_MOUNTPOINT
+            value: /gluster_mount/shared01
+          volumeMounts:
+            - name: shared01
+              mountPath: /gluster_mount
+        volumes:
+          - name: shared01
+            emptyDir: {}
       
