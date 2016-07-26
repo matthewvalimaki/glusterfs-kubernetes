@@ -18,7 +18,7 @@ Typical fix:
 
 1.1) On Debian Jesse: follow "Add backports to your sources.list" at https://backports.debian.org/Instructions/
 
-1.2) `sudo aptitude -t jessie-backports install linux-image-amd64 dbus`
+1.2) `sudo apt-get -t jessie-backports install linux-image-amd64 dbus`
 
 1.2) Modify `sudo vi /etc/sysconfig/docker` and add `--storage-driver=overlay` to DOCKER_OPTS.
 
