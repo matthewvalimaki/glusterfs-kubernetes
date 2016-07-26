@@ -15,8 +15,11 @@ and [the fix].
 Typical fix:
 
 1) Upgrade kernel to latest, for example `4.6.0-0.bpo.1-amd64`.
+
 1.1) On Debian Jesse: follow "Add backports to your sources.list" at https://backports.debian.org/Instructions/
+
 1.2) `sudo aptitude -t jessie-backports install linux-image-amd64 dbus`
+
 1.2) Modify `sudo vi /etc/sysconfig/docker` and add `--storage-driver=overlay` to DOCKER_OPTS.
 
 2) Reboot.
