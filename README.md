@@ -12,6 +12,15 @@ Older versions of Linux Kernel contain a bug that cause aufs errors and the foll
 `dirperm1 breaks the protection by the permission bits on the lower branch`. See Docker issue [21081]
 and [the fix].
 
+Typical fix:
+
+1) Upgrade kernel to latest, for example `4.6.0-0.bpo.1-amd64`.
+1.1) On Debian Jesse: follow "Add backports to your sources.list" at https://backports.debian.org/Instructions/
+1.2) `sudo aptitude -t jessie-backports install linux-image-amd64 dbus`
+1.2) Modify `sudo vi /etc/sysconfig/docker` and add `--storage-driver=overlay` to DOCKER_OPTS.
+
+2) Reboot.
+
 ## Server
 The [server] shows how to run [GlusterFS] server on Kubernetes. The [all-in-one.yaml] contains 
 ReplicationController, Service and ServiceAccount configuration and uses two (2) replicas. Note
