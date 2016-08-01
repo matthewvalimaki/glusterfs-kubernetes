@@ -59,19 +59,10 @@ items:
         labels:
           component: gfs-strg-d78-327
       spec:
-        nodeSelector:
-          docker-version: 1.11.2
         serviceAccount: glusterfs-d78-327
         containers:
         - name: gfs-srv-d78-327
           image: matthewvalimaki/glusterfs-kubernetes-server-debian7.8-3.2.7:latest
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           securityContext:
             privileged: true
           ports:
@@ -103,9 +94,13 @@ items:
             value: "1"
           - name: SSH_PORT
             value: "2222"
+          volumeMounts:
+          - mountPath: /gluster_volume
+            name: local0
         volumes:
           - name: local0
-            emptyDir: {}
+            hostPath:
+              path: /data
 - kind: ReplicationController
   apiVersion: v1
   metadata:
@@ -121,18 +116,9 @@ items:
         labels:
           component: gfs-c-d78-327
       spec:
-        nodeSelector:
-          docker-version: 1.11.2
         containers:
         - name: gfs-c-d78-327
           image: matthewvalimaki/glusterfs-kubernetes-client-debian7.8-3.2.7
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           securityContext:
             privileged: true
           env:

@@ -22,6 +22,8 @@ Typical fix:
 
 1.2) Modify `sudo vi /etc/sysconfig/docker` and add `--storage-driver=overlay` to DOCKER_OPTS.
 
+1.3) Do `rm -rf /var/lib/docker/aufs` to clear up old storage. See https://github.com/docker/docker/issues/15651#issuecomment-161579821 for explanation.
+
 2) Reboot.
 
 ## Server
