@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    component: gfs-strg-d78-327
+      spec:
+        serviceAccount: glusterfs-d78-327
+        containers:
+        - name: gfs-srv-d78-327
+          image: matthewvalimaki/glusterfs-kubernetes-server-debian7.8-3.2.7:latest
+          securityContext:
+            privileged: true
+          ports:
+          - containerPort: 2222
+          - containerPort: 24007
+          - containerPort: 24008
+          - containerPort: 49152
+          - containerPort: 38465
+          - containerPort: 38466
+          - containerPort: 38467
+          - containerPort: 2049
+          - containerPort: 111
+          - containerPort: 111
+            protocol: UDP
+          env:
+          - name: GLUSTER_VOLUME_TYPE
+            value: distributed
+          - name: GLUSTER_BRICK_PATH
+            value:
+          - name: GLUSTER_VOL
+            value: shared0
+          - name: GLUSTER_BRICK_PATH
+            value: /gluster_volume
+          - name: SERVICE_NAME
+            value: gfs-strg-d78-327.default.svc.cluster.local
+          - name: ROOT_PASSWORD
+            value: container_root_password
+          - name: DEBUG
+            value: "1"
+          - name: SSH_PORT
+            value: "2222"
+          volumeMounts:
+          - mountPath: /gluster_volume
+            name: local0
+        volumes:
+          - name: local0
+            hostPath:
+              path: /data
